@@ -1,10 +1,13 @@
-package com.example.Banking3.Client;
+package com.example.Banking3.client;
 
+import com.example.Banking3.shoppingCard.ShoppingCart;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -24,26 +27,18 @@ public class Client {
             generator = "client_sequence"
     )
     private Long id;
+    private ClientType clientType = ClientType.NORMAL;
     private String name;
     private String email;
+    private String password;
     private LocalDate dob;
     @Transient
     private Integer age;
-    //private String password;
-    //private String cardNumber;
 
+    @OneToMany(targetEntity = ShoppingCart.class,cascade = CascadeType.ALL)
+    @JoinColumn(name ="cp_fk",referencedColumnName = "id")
+    List<ShoppingCart> shoppingCart = new ArrayList<>() ;
 
-    public Client(Long id,
-                  String name,
-                  String email,
-                  LocalDate dob
-                  ) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.dob = dob;
-        this.age = age;
-    }
 
     public Client(String name,
                   String email,
@@ -52,10 +47,15 @@ public class Client {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
     }
 
     public Integer getAge() {
         return Period.between(this.dob, LocalDate.now()).getYears();
     }
+
+    public List<ShoppingCart> getShoppingCart() {
+        return shoppingCart;
+    }
+
+
 }

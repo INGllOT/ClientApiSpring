@@ -1,21 +1,15 @@
-package com.example.Banking3.Client;
+package com.example.Banking3.client;
 
 import lombok.AllArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping(path = "api/v1/client")
 public class ClientController {
 
-
     private final ClientService clientService;
-
-
-
 
     @GetMapping()
     public List<Client> getUsers(){
@@ -24,6 +18,7 @@ public class ClientController {
 
     @PostMapping
     public void registerNewClient(@RequestBody Client client){
+
         clientService.addNewClient(client);
     }
 

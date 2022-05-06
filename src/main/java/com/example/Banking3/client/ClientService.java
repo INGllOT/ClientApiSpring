@@ -1,25 +1,23 @@
-package com.example.Banking3.Client;
+package com.example.Banking3.client;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.Banking3.shoppingCard.ShoppingCartRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final ShoppingCartRepository accountRepository;
 
-    @Autowired
-    public ClientService(ClientRepository clientRepository){
-        this.clientRepository = clientRepository;
-    }
 
-    @GetMapping()
+
+
     public List<Client> getUsers(){
         return clientRepository.findAll();
     }
@@ -32,6 +30,8 @@ public class ClientService {
         }
         clientRepository.save(client);
     }
+
+
 
 
     public void deleteClient(Long clientId) {
@@ -51,7 +51,6 @@ public class ClientService {
 
         if (name != null && name.length() > 0 && !client.getName().equals(name)) {
             client.setName(name);
-
         }
 
         if (email != null && email.length() > 0 && !client.getEmail().equals(email)) {
