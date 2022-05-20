@@ -13,9 +13,7 @@ import java.util.Optional;
 public class ClientService {
 
     private final ClientRepository clientRepository;
-    private final ShoppingCartRepository accountRepository;
-
-
+    //private final ShoppingCartRepository accountRepository;
 
 
     public List<Client> getUsers(){
